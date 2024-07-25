@@ -8,12 +8,11 @@ const productSchema = new Schema({
   price: {
     type: Number,
     required: true,
-    min: 0,
-  },
-  brand: {
-    type: String,
-    required: true,
-  },
+  },  
+  // brand: {
+  //   type: String,
+  //   required: true,
+  // },
   description: {
     type: String,
     required: true,
@@ -21,8 +20,6 @@ const productSchema = new Schema({
   quantity: {
     type: Number,
     required: true,
-    min: 0,
-    default: 0,
   },
   image: {
     type: String,

@@ -28,19 +28,19 @@ const Categoryy = ({ categorys, onRemove }: Props) => {
         </thead>
         <tbody>
           {categorys.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
+            <tr key={item._id}>
+              <td>{item._id}</td>
               <td>{item.name}</td>
               <td>
                 <Link
-                  to={`/admin/category-edit/${item.id}`}
+                  to={`/admin/category-edit/${item._id}`}
                   className="btn btn-warning mx-2"
                 >
                   Edit
                 </Link>
                 <button
                   className="btn btn-danger"
-                  onClick={() => onRemove(item.id)}
+                  onClick={() => onRemove(item._id)}
                 >
                   Delete
                 </button>

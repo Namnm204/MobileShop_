@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Category } from "../interface/category";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CategorySchema } from "../validators/validatorsFrom";
@@ -11,7 +11,9 @@ type Props = {
 };
 
 const CategoryFrom = ({ onSubmit }: Props) => {
-  const { id } = useParams();
+  const { _id } = useParams();
+  const navigate = useNavigate(); // Đặt useNavigate ở đây
+
   const {
     register,
     formState: { errors },
@@ -20,19 +22,47 @@ const CategoryFrom = ({ onSubmit }: Props) => {
   } = useForm<Category>({
     resolver: zodResolver(CategorySchema),
   });
+
+  const handleFormSubmit = async (data: Category) => {
+    try {
+      if (_id) {
+        await instace.put(`/category/${_id}`, data);
+        alert('Sửa sản phẩm thành công');
+      } else {
+        await instace.post(`/category`, data);
+        alert('Thêm sản phẩm thành công');
+      }
+      navigate("/admin/category");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      if (id) {
-        const { data } = await instace.get(`/category/${id}`);
-        reset(data);
+      if (_id) {
+        const { data } = await instace.get(`/category/${_id}`);
+        reset(data.category || data);
       }
     };
     fetchData();
-  }, [id, reset]);
+  }, [_id, reset]);
+
+  
+  // const [category, setCategory] = useState<Category[]>([]);
+  // const fetchCategory = async () => {
+  //   try {
+  //     const { data } = await instace.get(`/category`);
+  //     setCategory(data.category || data);
+  //   } catch (error) {
+  //     console.error("Error fetching categories:", error);
+  //   }
+  // };
+
   return (
     <div className="edit-addProduct">
-      <form onSubmit={handleSubmit((data) => onSubmit({ ...data, id }))}>
-        <h1>{id ? "Edit Category" : "Add Category"}</h1>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <h1>{_id ? "Edit Category" : "Add Category"}</h1>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
             Name
@@ -48,7 +78,7 @@ const CategoryFrom = ({ onSubmit }: Props) => {
         </div>
         <div className="mb-3">
           <button className="btn btn-primary w-100">
-            {id ? "Edit Category" : "Add Category"}
+            {_id ? "Edit Category" : "Add Category"}
           </button>
         </div>
       </form>

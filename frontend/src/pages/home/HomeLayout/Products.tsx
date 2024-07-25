@@ -8,7 +8,7 @@ const Products = () => {
   //   const nav = useNavigate();
   const fetchProducts = async () => {
     const { data } = await instace.get(`/products`);
-    setProducts(data);
+    setProducts(data.products);
   };
   useEffect(() => {
     fetchProducts();
@@ -28,17 +28,17 @@ const Products = () => {
                           <div className="rounded position-relative fruite-item">
                             <div className="fruite-imgg">
                               <img
-                                src={prd.images}
+                                src={prd.image}
                                 className="img-fluid w-70 h-100 rounded-top"
                                 alt=""
                               />
                             </div>
                             <div className="p-4 border border-secondary border-top-0 rounded-bottom">
                               <Link
-                                to={`/product/detail/${prd.id}`}
+                                to={`/product/detail/${prd._id}`}
                                 className="title"
                               >
-                                {prd.title}
+                                {prd.name}
                               </Link>
                               <p>{prd.description}</p>
                               <div className="d-flex justify-content-between flex-lg-wrap">

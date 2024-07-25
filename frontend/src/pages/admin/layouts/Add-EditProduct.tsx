@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
 import { useNavigate } from "react-router-dom";
 import { instace } from "../../../api";
@@ -13,9 +13,11 @@ const AddEditProduct = () => {
   const fetchProducts = async () => {
     const { data } = await instace.get(`/products`);
     setProducts(data);
+    console.log(data);
   };
   useEffect(() => {
     fetchProducts();
+
   }, []);
   const fetchCategory = async () => {
     const { data } = await instace.get(`/category`);
@@ -24,9 +26,10 @@ const AddEditProduct = () => {
   useEffect(() => {
     fetchCategory();
   }, []);
-  const onSubmitProduct = async (data: Products | Category) => {
-    if (data.id) {
-      await instace.put(`/products/${data.id}`, data);
+  const onSubmitProduct = async (data: Products | Category) => { console.log(data);
+  
+    if (data._id) {
+      await instace.put(`/products/${data._id}`, data);
       const newData = await instace.get("/products");
       setProducts(newData.data);
     } else {
@@ -34,7 +37,7 @@ const AddEditProduct = () => {
       setProducts([...products, res.data]);
     }
     if (confirm("Succesfull, redirect to admin page?")) {
-      nav("/admin/product");
+      nav("/admin/products");
     }
   };
   return (

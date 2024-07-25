@@ -7,6 +7,7 @@ interface Props {
 }
 
 const Product = ({ products, onRemove }: Props) => {
+  
   return (
     <div className="product">
       {/* Product */}
@@ -24,7 +25,6 @@ const Product = ({ products, onRemove }: Props) => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Brand</th>
               <th>Title</th>
               <th>Image</th>
               <th>Quantity</th>
@@ -35,14 +35,13 @@ const Product = ({ products, onRemove }: Props) => {
           </thead>
           <tbody>
             {products.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.category}</td>
-                <td>{item.title}</td>
+              <tr key={item._id}>
+                <td>{item._id}</td>
+                <td>{item.name}</td>
                 <td>
                   {
                     <img
-                      src={item.images}
+                      src={item.image}
                       alt=""
                       style={{
                         width: "150px",
@@ -57,14 +56,14 @@ const Product = ({ products, onRemove }: Props) => {
                 <td>{item.description}</td>
                 <td>
                   <Link
-                    to={`/admin/product-edit/${item.id}`}
+                    to={`/admin/product-edit/${item._id}`}
                     className="btn btn-warning mx-2"
                   >
                     Edit
                   </Link>
                   <button
                     className="btn btn-danger"
-                    onClick={() => onRemove(item.id)}
+                    onClick={() => onRemove(item._id!)}
                   >
                     Remove
                   </button>

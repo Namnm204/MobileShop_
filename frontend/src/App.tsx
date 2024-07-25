@@ -19,13 +19,13 @@ function App() {
         {/* Private route admin */}
         <Route path="/admin" element={<PriveVateRoute />}>
           <Route path="/admin" element={<MainAdmin />} />
-          <Route path="/admin/product" element={<AdminProduct />} />
+          <Route path="/admin/products" element={<AdminProduct />} />
           <Route path="/admin/product-add" element={<AddEditProduct />} />
-          <Route path="/admin/product-edit/:id" element={<AddEditProduct />} />
+          <Route path="/admin/product-edit/:_id" element={<AddEditProduct />} />
           <Route path="/admin/category" element={<AdminCategory />} />
           <Route path="/admin/category-add" element={<AddEditCategory />} />
           <Route
-            path="/admin/category-edit/:id"
+            path="/admin/category-edit/:_id"
             element={<AddEditCategory />}
           />
         </Route>
