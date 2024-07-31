@@ -10,7 +10,7 @@ const AdminProduct = () => {
   //   const nav = useNavigate();
   const fetchProducts = async () => {
     const { data } = await instace.get(`/products`);
-    setProducts(data);
+    setProducts(data.products || data);
   };
   useEffect(() => {
     fetchProducts();
@@ -19,7 +19,7 @@ const AdminProduct = () => {
   const handleRemove = async (id: number | string) => {
     if (confirm("Bạn chắc chắn muốn xóa không")) {
       await instace.delete(`/products/${id}`);
-      setProducts(products.filter((item) => item.id !== id));
+      setProducts(products.filter((item) => item._id !== id));
     }
   };
   return (

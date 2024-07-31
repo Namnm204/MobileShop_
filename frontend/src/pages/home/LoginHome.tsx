@@ -9,7 +9,7 @@ const LoginHome = () => {
   const [users, setUsers] = useState<Users[]>([]);
   const fetchUsers = async () => {
     const { data } = await instace.get(`/login`);
-    setUsers(data);
+    setUsers(data.users);
   };
   useEffect(() => {
     fetchUsers();
@@ -26,7 +26,7 @@ const LoginHome = () => {
       }
     } catch (error) {
       console.log(error);
-      alert(error.response.data || "Đăng kí thất bại! Email đã tồn tại ");
+      alert("Đăng kí thất bại! Email đã tồn tại ");
     }
   };
   return (

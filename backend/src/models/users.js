@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     minlength: 3,
@@ -17,24 +17,24 @@ const userSchema = new Schema({
     required: true,
     minlength: 6,
   },
-  gender: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
-  avatar: {
-    type: String,
-  },
-  address: {
-    type: String,
-  },
-  phoneNumber: {
-    type: Number,
-    required: true,
-  },
+  // gender: {
+  //   type: String,
+  // },
+  // role: {
+  //   type: String,
+  //   enum: ["user", "admin"],
+  //   default: "user",
+  // },
+  // avatar: {
+  //   type: String,
+  // },
+  // address: {
+  //   type: String,
+  // },
+  // phoneNumber: {
+  //   type: Number,
+  //   required: true,
+  // },
 });
 
 export default mongoose.model("User", userSchema);

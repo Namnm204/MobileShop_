@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Products } from "../interface/product";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { productSchema } from "../validators/validatorsFrom";
 import { Category } from "../interface/category";
 import { instace } from "../api";
 
-type Props = {
-  onSubmit: (data: Products | Category) => void;
-  categorys: Category[];
-};
-
-const ProductFrom = ({ onSubmit, categorys }: Props) => {
-  const { id } = useParams();
+const ProductFrom = () => {
+  const { _id } = useParams();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -22,63 +18,96 @@ const ProductFrom = ({ onSubmit, categorys }: Props) => {
   } = useForm<Products>({
     resolver: zodResolver(productSchema),
   });
+
   useEffect(() => {
     const fetchData = async () => {
-      if (id) {
-        const { data } = await instace.get(`/products/${id}`);
-        reset(data);
+      if (_id) {
+        const { data } = await instace.get(`/products/${_id}`);
+        reset(data.products || data);
       }
     };
 
     fetchData();
-  }, [id, reset]);
+    fetchCategory();
+  }, [_id, reset]);
+
+  const handleFormSubmit = async (data: Products) => {
+    try {
+      if (_id) {
+        await instace.put(`/products/${_id}`, data);
+        alert('Sửa sản phẩm thành công');
+      } else {
+        await instace.post(`/products`, data);
+        alert('Thêm sản phẩm thành công');
+      }
+      navigate("/admin/products");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [category, setCategory] = useState<Category[]>([]);
+  const fetchCategory = async () => {
+    try {
+      const { data } = await instace.get(`/category`);
+      setCategory(data.category || data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
   return (
     <div className="edit-addProduct">
-      <form onSubmit={handleSubmit((data) => onSubmit({ ...data, id }))}>
-        <h1>{id ? "Edit product" : "Add Product"}</h1>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <h1>{_id ? "Edit product" : "Add Product"}</h1>
         <div className="mb-3">
-          <label htmlFor="category" className="form-label">
-            Brand
+          <label htmlFor="categoryId" className="form-label">
+            Category
           </label>
           <select
-            id="category"
+            id="categoryId"
             className="form-control"
-            {...register("category")}
+            {...register("categoryId")}
           >
-            {categorys.map((item) => (
-              <option key={id}>{item.name}</option>
+            {category.map((item) => (
+              <option key={item._id} value={item._id}>
+                {item.name}
+              </option>
             ))}
           </select>
         </div>
         <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            Title
+          <label htmlFor="name" className="form-label">
+            Name
           </label>
           <input
             type="text"
             className="form-control"
-            {...register("title", { required: true })}
+            {...register("name", { required: true })}
           />
-          {errors.title && (
-            <span className="text-danger">{errors.title.message}</span>
+          {errors.name && (
+            <span className="text-danger">{errors.name.message}</span>
           )}
         </div>
         <div className="mb-3">
-          <label htmlFor="images" className="form-label">
+          <label htmlFor="image" className="form-label">
             Image
           </label>
           <input
             type="text"
             className="form-control"
-            {...register("images", { required: true })}
+            {...register("image", { required: true })}
           />
+          {errors.image && (
+            <span className="text-danger">{errors.image.message}</span>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="quantity" className="form-label">
             Quantity
           </label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             {...register("quantity", { required: true, valueAsNumber: true })}
           />
@@ -91,7 +120,7 @@ const ProductFrom = ({ onSubmit, categorys }: Props) => {
             Price
           </label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             {...register("price", { required: true, valueAsNumber: true })}
           />
@@ -111,7 +140,7 @@ const ProductFrom = ({ onSubmit, categorys }: Props) => {
         </div>
         <div className="mb-3">
           <button className="btn btn-primary w-100">
-            {id ? "Edit product" : "Add Product"}
+            {_id ? "Edit product" : "Add Product"}
           </button>
         </div>
       </form>

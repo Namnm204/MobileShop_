@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const userSchema = Joi.object({
-  name: Joi.string().required().min(3).max(30).messages({
+  username: Joi.string().required().min(3).max(30).messages({
     string: "Tên phải từ 3 đến 30 ký tự",
     min: "Tên phải từ 3 đến 30 ký tự",
     max: "Tên phải từ 3 đến 30 ký tự",
@@ -21,13 +21,10 @@ const userSchema = Joi.object({
     max: "Mật khẩu phải từ 6 đến 30 ký tự",
     required: "Mật khẩu không được bỏ trống!",
   }),
-  phoneNumber: Joi.string().required().messages({
-    string: "Số điện thoại phải đúng đúng dạng",
-    required: "Số điện thoại không được bỏ trống!",
-  }),
+
 });
 export const ListUser = (req, res) => {
-  const nameString = req.query.name;
+  const nameString = req.query.username;
   User.find(nameString)
     .then((data) => {
       res.json({ message: "DANH SÁCH TÀI KHOẢN", data });
@@ -38,7 +35,7 @@ export const ListUser = (req, res) => {
 };
 export const Signup = async (req, res) => {
   try {
-    const { name, email, password, phoneNumber } = req.body;
+    const { username, email, password } = req.body;
     const { error } = userSchema.validate(req.body, { abortEarly: false });
     if (error) {
       return res.json({
@@ -52,12 +49,11 @@ export const Signup = async (req, res) => {
     }
     const hashedPassword = await bcryptjs.hash(password, 12);
     const newUser = await User.create({
-      name,
+      username,
       email,
       password: hashedPassword,
-      phoneNumber,
     });
-    newUser.password = undefined;
+    newUser.password = undefined;  
     res.json({ message: "Đăng ký thành công", newUser });
   } catch (error) {
     res.json({ message: "Có lỗi xảy ra trong quá trình đăng ký", error });

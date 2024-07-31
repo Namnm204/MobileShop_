@@ -25,7 +25,7 @@ const RegisterHome = () => {
       }
     } catch (error) {
       console.log(error);
-      alert(error.response.data || "Đăng kí thất bại! Email đã tồn tại");
+      alert("Đăng kí thất bại! Email đã tồn tại");
     }
   };
   return (

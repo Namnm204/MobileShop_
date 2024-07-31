@@ -3,10 +3,10 @@ import Joi from "joi";
 
 const productSchema = Joi.object({
   name: Joi.string().required(),
-  price: Joi.number().min(0).required(),
-  brand: Joi.string().required(),
+  price: Joi.number().required(),
+  // categoryId: Joi.string().required(),
   description: Joi.string().required(),
-  quantity: Joi.number().min(0).default(0).required(),
+  quantity: Joi.number().required(),
   image: Joi.string().required(),
   categoryId: Joi.string().required(), // Đảm bảo categoryId là bắt buộc
 });
