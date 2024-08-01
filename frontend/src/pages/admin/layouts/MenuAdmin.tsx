@@ -32,7 +32,7 @@ const MenuAdmin = () => {
               <i className="fa fa-tachometer-alt me-2" />
               Dashboard
             </a>
-            <Link to="/admin/product" className="nav-item nav-link">
+            <Link to="/admin/products" className="nav-item nav-link">
               <i className="bi bi-kanban"></i>
               Product
             </Link>
