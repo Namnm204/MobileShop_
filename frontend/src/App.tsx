@@ -10,6 +10,10 @@ import RegisterHome from "./pages/home/RegisterHome";
 import HomeDetail from "./pages/home/HomeDetail";
 import LoginHome from "./pages/home/LoginHome";
 import PriveVateRoute from "./component/PriveVateRoute";
+import Contact from "./pages/home/HomeLayout/Contact";
+import GTHome from "./pages/home/IntroduceHome";
+import Car from "./pages/home/HomeLayout/car";
+import Checkout from "./pages/home/HomeLayout/checkout";
 function App() {
   return (
     <>
@@ -31,6 +35,10 @@ function App() {
         </Route>
         <Route path="/register" element={<RegisterHome />} />
         <Route path="/login" element={<LoginHome />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/introduce" element={<GTHome />} />
+        <Route path="/car" element={<Car />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );
