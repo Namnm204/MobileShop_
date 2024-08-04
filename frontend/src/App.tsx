@@ -12,6 +12,7 @@ import HomeDetail from "./pages/home/HomeDetail";
 import HomeMain from "./pages/home/HomeMain";
 import LoginHome from "./pages/home/LoginHome";
 import RegisterHome from "./pages/home/RegisterHome";
+import HomeOder from "./pages/home/homeOder";
 function App() {
   return (
     <>
@@ -35,6 +36,7 @@ function App() {
         <Route path="/register" element={<RegisterHome />} />
         <Route path="/login" element={<LoginHome />} />
         <Route path="/cart" element={<HomeCart />} />
+        <Route path="/oder" element={<HomeOder />} />
       </Routes>
     </>
   );

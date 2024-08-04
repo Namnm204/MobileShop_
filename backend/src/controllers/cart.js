@@ -14,7 +14,7 @@ export const getbyIdCart = async (req, res) => {
         quantity: item.quantity,
       })),
     };
-    return res.json({ message: `tim thay gio hang`, cartData });
+    return res.json(cartData);
   } catch (error) {
     console.log(error);
   }
