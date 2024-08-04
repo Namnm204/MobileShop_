@@ -30,6 +30,7 @@ const Products = () => {
       return data;
     },
     onSuccess: () => {
+      alert("thêm vào giỏ hành thành công");
       queryClient.invalidateQueries({
         queryKey: ["cart", userId],
       });
