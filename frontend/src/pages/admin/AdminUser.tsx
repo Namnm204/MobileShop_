@@ -3,13 +3,14 @@ import { Users } from "../../interface/users";
 import { instace } from "../../api";
 import AdminLayout from "./layouts/AdminLayout";
 import UserManagement from "./User";
+import axios from "axios";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState<Users[]>([]);
 
   const fetchUsers = async () => {
     try {
-      const { data } = await instace.get(`/user`);
+      const { data } = await axios.get(`http://localhost:8080/user`);
       setUsers(Array.isArray(data.data) ? data.data : []);
     } catch (error) {
       console.error("Lỗi khi lấy người dùng:", error);
@@ -21,18 +22,18 @@ const AdminUsers = () => {
     fetchUsers();
   }, []);
 
-  const handleLockUser = async (userId: string) => {
+  const handleLockUser = async (userId: string, lock: boolean) => {
     try {
-      await instace.post(`/user/lock/${userId}`);
+      const endpoint = lock ? `/user/lock/${userId}` : `/user/unlock/${userId}`;
+      await instace.post(endpoint);
       // Cập nhật trạng thái của người dùng trong danh sách
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
-          user._id === userId ? { ...user, isLocked: true } : user
+          user._id === userId ? { ...user, isLocked: lock } : user
         )
       );
     } catch (error) {
-      console.error("Lỗi khi khóa tài khoản:", error);
-      throw error;
+      console.error("Lỗi khi khóa/mở khóa tài khoản:", error);
     }
   };
 

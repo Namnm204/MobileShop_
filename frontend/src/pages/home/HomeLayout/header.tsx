@@ -43,7 +43,7 @@ const Header = () => {
         </div>
         <div className="container px-0">
           <nav className="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" className="navbar-brand">
+            <a href="/" className="navbar-brand">
               <h1 className="text-primary display-6">Apple Shop</h1>
             </a>
             <button
