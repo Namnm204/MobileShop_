@@ -2,10 +2,8 @@ import Banner from "./HomeLayout/banner";
 import BestSeller from "./HomeLayout/BestSeller";
 import DisCount from "./HomeLayout/DisCount";
 import HomeLayout from "./HomeLayout/HomeLayout";
-import Icon from "./HomeLayout/icon";
 import Menu from "./HomeLayout/Menu";
 import Products from "./HomeLayout/Products";
-import SellIcon from "./HomeLayout/SellIcon";
 
 const HomeMain = () => {
   return (
