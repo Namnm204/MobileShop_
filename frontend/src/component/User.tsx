@@ -40,100 +40,104 @@ const UserEdit = () => {
       <div className="container d-flex flex-column align-items-center mt-4">
         <h2 className="text-2xl font-bold mb-4">Chỉnh sửa tài khoản</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-75">
-          <div className="mb-3">
-            <label htmlFor="username" className="form-label">
-              Tên tài khoản:
-            </label>
-            <input
-              type="text"
-              id="username"
-              {...register("username", { required: true })}
-              className="form-control"
-            />
+          <div className="row">
+            <div className="col-md-6">
+              <div className="mb-3">
+                <label htmlFor="username" className="form-label">
+                  Tên tài khoản:
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  {...register("username", { required: true })}
+                  className="form-control"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  Mật Khẩu:
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  {...register("password", { required: true })}
+                  className="form-control"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email:
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  {...register("email", { required: true })}
+                  className="form-control"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="gender" className="form-label">
+                  Giới Tính:
+                </label>
+                <input
+                  type="text"
+                  id="gender"
+                  {...register("gender")}
+                  className="form-control"
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="mb-3">
+                <label htmlFor="address" className="form-label">
+                  Địa chỉ:
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  {...register("address")}
+                  className="form-control"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="phoneNumber" className="form-label">
+                  Số Điện Thoại:
+                </label>
+                <input
+                  type="number"
+                  id="phoneNumber"
+                  {...register("phoneNumber")}
+                  className="form-control"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="role" className="form-label">
+                  Vai trò:
+                </label>
+                <select
+                  id="role"
+                  {...register("role", { required: true })}
+                  className="form-control"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="user">Người dùng</option>
+                  {/* Thêm các vai trò khác nếu cần */}
+                </select>
+              </div>
+              <div className="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  id="isLocked"
+                  {...register("isLocked")}
+                  className="form-check-input"
+                />
+                <label htmlFor="isLocked" className="form-check-label">
+                  Tài khoản bị khóa
+                </label>
+              </div>
+            </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Mật Khẩu:
-            </label>
-            <input
-              type="password"
-              id="password"
-              {...register("password", { required: true })}
-              className="form-control"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              {...register("email", { required: true })}
-              className="form-control"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="gender" className="form-label">
-              Giới Tính:
-            </label>
-            <input
-              type="text"
-              id="gender"
-              {...register("gender")}
-              className="form-control"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="address" className="form-label">
-              địa chỉ:
-            </label>
-            <input
-              type="text"
-              id="address"
-              {...register("address")}
-              className="form-control"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="phoneNumber" className="form-label">
-              Số Điện Thoại:
-            </label>
-            <input
-              type="number"
-              id="phoneNumber"
-              {...register("phoneNumber")}
-              className="form-control"
-            />
-          </div>
-
-          {/* phan quyeenf */}
-          <div className="mb-3">
-            <label htmlFor="role" className="form-label">
-              Vai trò:
-            </label>
-            <select
-              id="role"
-              {...register("role", { required: true })}
-              className="form-control"
-            >
-              <option value="admin">Admin</option>
-              <option value="user">Người dùng</option>
-              {/* Thêm các vai trò khác nếu cần */}
-            </select>
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              id="isLocked"
-              {...register("isLocked")}
-              className="form-check-input"
-            />
-            <label htmlFor="isLocked" className="form-check-label">
-              Tài khoản bị khóa
-            </label>
-          </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary mt-3">
             Lưu
           </button>
         </form>
