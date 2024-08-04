@@ -11,8 +11,16 @@ import HomeCart from "./pages/home/homeCart";
 import HomeDetail from "./pages/home/HomeDetail";
 import HomeMain from "./pages/home/HomeMain";
 import LoginHome from "./pages/home/LoginHome";
+<<<<<<< HEAD
 import RegisterHome from "./pages/home/RegisterHome";
 import HomeOder from "./pages/home/homeOder";
+=======
+import PriveVateRoute from "./component/PriveVateRoute";
+import Contact from "./pages/home/HomeLayout/Contact";
+import GTHome from "./pages/home/IntroduceHome";
+import Car from "./pages/home/HomeLayout/car";
+import Checkout from "./pages/home/HomeLayout/checkout";
+>>>>>>> origin
 function App() {
   return (
     <>
@@ -35,8 +43,15 @@ function App() {
         </Route>
         <Route path="/register" element={<RegisterHome />} />
         <Route path="/login" element={<LoginHome />} />
+<<<<<<< HEAD
         <Route path="/cart" element={<HomeCart />} />
         <Route path="/oder" element={<HomeOder />} />
+=======
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/introduce" element={<GTHome />} />
+        <Route path="/car" element={<Car />} />
+        <Route path="/checkout" element={<Checkout />} />
+>>>>>>> origin
       </Routes>
     </>
   );

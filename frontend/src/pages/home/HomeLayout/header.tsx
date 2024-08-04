@@ -77,13 +77,13 @@ const Header = () => {
                     Pages
                   </a>
                   <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                    <a href="cart.html" className="dropdown-item">
+                    <a href="/car" className="dropdown-item">
                       Cart
                     </a>
-                    <a href="chackout.html" className="dropdown-item">
+                    <a href="/checkout" className="dropdown-item">
                       Chackout
                     </a>
-                    <a href="testimonial.html" className="dropdown-item">
+                    <a href="/introduce" className="dropdown-item">
                       Testimonial
                     </a>
                     <a href="404.html" className="dropdown-item">
@@ -91,7 +91,7 @@ const Header = () => {
                     </a>
                   </div>
                 </div>
-                <a href="contact.html" className="nav-item nav-link">
+                <a href="/contact" className="nav-item nav-link">
                   Contact
                 </a>
               </div>
