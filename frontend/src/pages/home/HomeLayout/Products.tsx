@@ -45,8 +45,8 @@ const Products = () => {
   }, []);
   return (
     <div>
-      <div className="container-fluid fruite py-5">
-        <div className="container py-5">
+      <div className="container-fluid fruite">
+        <div className="container">
           <div className="tab-class text-center">
             <div className="tab-content">
               <div id="tab-1" className="tab-pane fade show p-0 active">
@@ -59,7 +59,7 @@ const Products = () => {
                             <div className="fruite-imgg">
                               <img
                                 src={prd.image}
-                                className="img-fluid w-70 h-100 rounded-top"
+                                className="img-fluid rounded-top"
                                 alt=""
                               />
                             </div>

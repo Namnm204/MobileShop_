@@ -11,10 +11,10 @@ const HomeMain = () => {
   return (
     <HomeLayout>
       <Banner></Banner>
-      <Icon></Icon>
+      {/* <Icon></Icon> */}
       <Menu></Menu>
       <Products></Products>
-      <SellIcon />
+      {/* <SellIcon /> */}
       <DisCount />
       <BestSeller />
     </HomeLayout>

@@ -1,31 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-
-// Hàm lấy dữ liệu giỏ hàng từ API
-const fetchCartData = async () => {
-  const response = await axios.get("http://localhost:8080/carts"); // Thay thế bằng endpoint chính xác
-  return response.data; // Đảm bảo cấu trúc dữ liệu trả về phù hợp với `cartItemCount` tính toán
-};
 
 const Header = () => {
   const nav = useNavigate();
   const role = JSON.parse(localStorage.getItem("user") || "{}")?.user?.role;
   const username = JSON.parse(localStorage.getItem("user") || "{}")?.user
     ?.username;
-
-  const {
-    data: cart,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["cart"],
-    queryFn: fetchCartData,
-  });
-
-  // Tính tổng số lượng sản phẩm trong giỏ hàng
-  const cartItemCount =
-    cart?.reduce((count, item) => count + item.quantity, 0) || 0;
 
   const logout = () => {
     localStorage.removeItem("user");
@@ -132,7 +111,7 @@ const Header = () => {
                     className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                     style={{ top: "-5px", left: 15, height: 20, minWidth: 20 }}
                   >
-                    {isLoading ? "..." : error ? "Error" : cartItemCount}
+                    3
                   </span>
                 </Link>
                 <div className="nav-item dropdown">
