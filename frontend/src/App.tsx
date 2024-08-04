@@ -1,15 +1,18 @@
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import HomeMain from "./pages/home/HomeMain";
+import "./App.css";
+import PriveVateRoute from "./component/PriveVateRoute";
+import AdminCategory from "./pages/admin/AdminCategory";
 import MainAdmin from "./pages/admin/AdminPage";
 import AdminProduct from "./pages/admin/AdminProduct";
+import AdminUsers from "./pages/admin/AdminUser";
 import AddEditProduct from "./pages/admin/layouts/Add-EditProduct";
-import AdminCategory from "./pages/admin/AdminCategory";
 import AddEditCategory from "./pages/admin/layouts/AddEditCategory";
-import RegisterHome from "./pages/home/RegisterHome";
+import HomeCart from "./pages/home/homeCart";
 import HomeDetail from "./pages/home/HomeDetail";
+import HomeMain from "./pages/home/HomeMain";
 import LoginHome from "./pages/home/LoginHome";
-import PriveVateRoute from "./component/PriveVateRoute";
+import RegisterHome from "./pages/home/RegisterHome";
+import HomeOder from "./pages/home/homeOder";
 import Contact from "./pages/home/HomeLayout/Contact";
 import GTHome from "./pages/home/IntroduceHome";
 import Car from "./pages/home/HomeLayout/car";
@@ -27,6 +30,7 @@ function App() {
           <Route path="/admin/product-add" element={<AddEditProduct />} />
           <Route path="/admin/product-edit/:_id" element={<AddEditProduct />} />
           <Route path="/admin/category" element={<AdminCategory />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/category-add" element={<AddEditCategory />} />
           <Route
             path="/admin/category-edit/:_id"
@@ -35,6 +39,8 @@ function App() {
         </Route>
         <Route path="/register" element={<RegisterHome />} />
         <Route path="/login" element={<LoginHome />} />
+        <Route path="/cart" element={<HomeCart />} />
+        <Route path="/oder" element={<HomeOder />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/introduce" element={<GTHome />} />
         <Route path="/car" element={<Car />} />

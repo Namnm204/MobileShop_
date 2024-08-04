@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const nav = useNavigate();
-  const username = JSON.parse(localStorage.getItem("user"))?.user?.username;
+  const username = JSON.parse(localStorage.getItem("user") || "{}")?.user
+    ?.username;
   const logout = () => {
     localStorage.removeItem("user");
     nav("/login");
@@ -42,7 +43,7 @@ const Header = () => {
         </div>
         <div className="container px-0">
           <nav className="navbar navbar-light bg-white navbar-expand-xl">
-            <a href="index.html" className="navbar-brand">
+            <a href="/" className="navbar-brand">
               <h1 className="text-primary display-6">Apple Shop</h1>
             </a>
             <button
@@ -102,7 +103,7 @@ const Header = () => {
                 >
                   <i className="fas fa-search text-primary" />
                 </button>
-                <a href="#" className="position-relative me-4 my-auto">
+                <Link to="/cart" className="position-relative me-4 my-auto">
                   <i className="fa fa-shopping-bag fa-2x" />
                   <span
                     className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
@@ -110,7 +111,7 @@ const Header = () => {
                   >
                     3
                   </span>
-                </a>
+                </Link>
                 <div className="nav-item dropdown">
                   <a href="#" className="my-auto">
                     <i className="fas fa-user fa-2x" />

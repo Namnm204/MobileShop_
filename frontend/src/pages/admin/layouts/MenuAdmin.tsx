@@ -40,15 +40,19 @@ const MenuAdmin = () => {
               <i className="fa fa-th me-2" />
               Category
             </Link>
-            <a href="form.html" className="nav-item nav-link">
+            <Link to="/admin/users" className="nav-item nav-link">
+              <i className="fa fa-light fa-users" />
+              User
+            </Link>
+            <a href="#" className="nav-item nav-link">
               <i className="fa fa-keyboard me-2" />
               Forms
             </a>
-            <a href="table.html" className="nav-item nav-link">
+            <a href="#" className="nav-item nav-link">
               <i className="fa fa-table me-2" />
               Tables
             </a>
-            <a href="chart.html" className="nav-item nav-link">
+            <a href="#" className="nav-item nav-link">
               <i className="fa fa-chart-bar me-2" />
               Charts
             </a>

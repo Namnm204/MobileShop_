@@ -21,7 +21,6 @@ const userSchema = Joi.object({
     max: "Mật khẩu phải từ 6 đến 30 ký tự",
     required: "Mật khẩu không được bỏ trống!",
   }),
-
 });
 export const ListUser = (req, res) => {
   const nameString = req.query.username;
@@ -53,7 +52,7 @@ export const Signup = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    newUser.password = undefined;  
+    newUser.password = undefined;
     res.json({ message: "Đăng ký thành công", newUser });
   } catch (error) {
     res.json({ message: "Có lỗi xảy ra trong quá trình đăng ký", error });
@@ -87,5 +86,38 @@ export const Logout = (req, res) => {
     res.json({ message: "Đăng xuất thành công" });
   } catch (error) {
     res.json({ message: "Có lỗi xảy ra khi đăng xuất", error });
+  }
+};
+
+export const lockUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { isLocked: true },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: "Người dùng không tồn tại." });
+    }
+    res.json({ message: "Tài khoản đã bị khóa.", user });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server.", error });
+  }
+};
+
+// Controller để mở khóa tài khoản
+export const unlockUser = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { isLocked: false },
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).json({ message: "Người dùng không tồn tại." });
+    }
+    res.json({ message: "Tài khoản đã được mở khóa.", user });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server.", error });
   }
 };

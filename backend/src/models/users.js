@@ -17,24 +17,27 @@ const userSchema = new Schema({
     required: true,
     minlength: 6,
   },
-  // gender: {
-  //   type: String,
-  // },
-  // role: {
-  //   type: String,
-  //   enum: ["user", "admin"],
-  //   default: "user",
-  // },
-  // avatar: {
-  //   type: String,
-  // },
-  // address: {
-  //   type: String,
-  // },
-  // phoneNumber: {
-  //   type: Number,
-  //   required: true,
-  // },
+  gender: {
+    type: String,
+  },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+  avatar: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  phoneNumber: {
+    type: Number,
+  },
+  isLocked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("User", userSchema);
