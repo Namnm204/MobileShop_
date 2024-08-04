@@ -4,7 +4,8 @@ export interface Products {
   price: number;
   // brand: string;
   quantity: number;
-  image: string ;
+  image: string;
   description: string;
   categoryId: string;
+  productId?: string | undefined;
 }

@@ -3,5 +3,10 @@ export interface Users {
   username: string;
   email: string;
   password: string;
-  repassword: string;
+  gender?: string;
+  role: "user" | "admin";
+  avatar?: string;
+  address?: string;
+  phoneNumber?: number;
+  isLocked?: boolean;
 }
