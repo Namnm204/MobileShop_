@@ -1,5 +1,12 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+// Hàm lấy dữ liệu giỏ hàng từ API
+const fetchCartData = async () => {
+  const response = await axios.get("http://localhost:8080/carts"); // Thay thế bằng endpoint chính xác
+  return response.data; // Đảm bảo cấu trúc dữ liệu trả về phù hợp với `cartItemCount` tính toán
+};
 
 const Header = () => {
   const nav = useNavigate();
@@ -7,10 +14,24 @@ const Header = () => {
   const username = JSON.parse(localStorage.getItem("user") || "{}")?.user
     ?.username;
 
+  const {
+    data: cart,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["cart"],
+    queryFn: fetchCartData,
+  });
+
+  // Tính tổng số lượng sản phẩm trong giỏ hàng
+  const cartItemCount =
+    cart?.reduce((count, item) => count + item.quantity, 0) || 0;
+
   const logout = () => {
     localStorage.removeItem("user");
     nav("/login");
   };
+
   return (
     <>
       <div className="container-fluid fixed-top">
@@ -18,9 +39,9 @@ const Header = () => {
           <div className="d-flex justify-content-between">
             <div className="top-info ps-2">
               <small className="me-3">
-                <i className="fas fa-map-marker-alt me-2 text-secondary" />{" "}
+                <i className="fas fa-map-marker-alt me-2 text-secondary" />
                 <a href="#" className="text-white">
-                  Phương Canh, Nam Từ Liêm , Hà Nội
+                  Phương Canh, Nam Từ Liêm, Hà Nội
                 </a>
               </small>
               <small className="me-3">
@@ -61,13 +82,13 @@ const Header = () => {
               id="navbarCollapse"
             >
               <div className="navbar-nav mx-auto">
-                <a href="index.html" className="nav-item nav-link active">
+                <a href="/" className="nav-item nav-link active">
                   Home
                 </a>
-                <a href="shop.html" className="nav-item nav-link">
+                <a href="/shop" className="nav-item nav-link">
                   Shop
                 </a>
-                <a href="shop-detail.html" className="nav-item nav-link">
+                <a href="/shop-detail" className="nav-item nav-link">
                   Shop Detail
                 </a>
                 <div className="nav-item dropdown">
@@ -79,16 +100,16 @@ const Header = () => {
                     Pages
                   </a>
                   <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                    <a href="/car" className="dropdown-item">
+                    <a href="/cart" className="dropdown-item">
                       Cart
                     </a>
                     <a href="/checkout" className="dropdown-item">
-                      Chackout
+                      Checkout
                     </a>
                     <a href="/introduce" className="dropdown-item">
                       Testimonial
                     </a>
-                    <a href="404.html" className="dropdown-item">
+                    <a href="/404" className="dropdown-item">
                       404 Page
                     </a>
                   </div>
@@ -111,7 +132,7 @@ const Header = () => {
                     className="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                     style={{ top: "-5px", left: 15, height: 20, minWidth: 20 }}
                   >
-                    3
+                    {isLoading ? "..." : error ? "Error" : cartItemCount}
                   </span>
                 </Link>
                 <div className="nav-item dropdown">
@@ -122,14 +143,13 @@ const Header = () => {
                     {username ? (
                       <li>
                         <Link to="" className="dropdown-item">
-                          User : {username}
+                          User: {username}
                         </Link>
                         {role === "admin" && (
                           <Link to="/admin" className="dropdown-item">
                             Admin
                           </Link>
                         )}
-
                         <button className="dropdown-item" onClick={logout}>
                           Logout
                         </button>
