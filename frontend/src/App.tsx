@@ -17,6 +17,7 @@ import Contact from "./pages/home/HomeLayout/Contact";
 import GTHome from "./pages/home/IntroduceHome";
 import Car from "./pages/home/HomeLayout/car";
 import Checkout from "./pages/home/HomeLayout/checkout";
+import UserEdit from "./component/User";
 function App() {
   return (
     <>
@@ -31,6 +32,7 @@ function App() {
           <Route path="/admin/product-edit/:_id" element={<AddEditProduct />} />
           <Route path="/admin/category" element={<AdminCategory />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/user-edit/:id" element={<UserEdit />} />
           <Route path="/admin/category-add" element={<AddEditCategory />} />
           <Route
             path="/admin/category-edit/:_id"

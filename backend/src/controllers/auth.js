@@ -105,7 +105,6 @@ export const lockUser = async (req, res) => {
   }
 };
 
-// Controller để mở khóa tài khoản
 export const unlockUser = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(
@@ -117,6 +116,39 @@ export const unlockUser = async (req, res) => {
       return res.status(404).json({ message: "Người dùng không tồn tại." });
     }
     res.json({ message: "Tài khoản đã được mở khóa.", user });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server.", error });
+  }
+};
+
+// Cập nhật thông tin người dùng
+export const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, email, role, isLocked } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      id,
+      { username, email, role, isLocked },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "Người dùng không tồn tại." });
+    }
+
+    res.json({ message: "Thông tin người dùng đã được cập nhật.", user });
+  } catch (error) {
+    res.status(500).json({ message: "Lỗi server.", error });
+  }
+};
+export const getByIdUser = async (req, res) => {
+  try {
+    const users = await User.findById(req.params.id);
+    if (!users) {
+      return res.status(404).json({ message: "Người dùng không tồn tại." });
+    }
+    return res.json({ message: "Thông tin người dùng", users });
   } catch (error) {
     res.status(500).json({ message: "Lỗi server.", error });
   }

@@ -6,12 +6,9 @@ const MenuAdmin = () => {
     <div>
       <div className="sidebar pe-4 pb-3">
         <nav className="navbar bg-light navbar-light">
-          <a href="index.html" className="navbar-brand mx-4 mb-3">
-            <h3 className="text-primary">
-              <i className="fa fa-hashtag me-2" />
-              ADMIN
-            </h3>
-          </a>
+          <Link to="/admin/products" className="navbar-brand mx-4 mb-3">
+            <h3 className="text-primary">ADMIN</h3>
+          </Link>
           <div className="d-flex align-items-center ms-4 mb-4">
             <div className="position-relative">
               <img
@@ -56,30 +53,10 @@ const MenuAdmin = () => {
               <i className="fa fa-chart-bar me-2" />
               Charts
             </a>
-            <div className="nav-item dropdown">
-              <a
-                href="#"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                <i className="far fa-file-alt me-2" />
-                Pages
-              </a>
-              <div className="dropdown-menu bg-transparent border-0">
-                <a href="signin.html" className="dropdown-item">
-                  Sign In
-                </a>
-                <a href="signup.html" className="dropdown-item">
-                  Sign Up
-                </a>
-                <a href="404.html" className="dropdown-item">
-                  404 Error
-                </a>
-                <a href="blank.html" className="dropdown-item">
-                  Blank Page
-                </a>
-              </div>
-            </div>
+            <Link to="/" className="nav-item nav-link">
+              <i className="fa fa-solid fa-house" />
+              Home
+            </Link>
           </div>
         </nav>
       </div>
