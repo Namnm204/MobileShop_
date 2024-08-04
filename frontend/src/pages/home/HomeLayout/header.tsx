@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const nav = useNavigate();
+  const role = JSON.parse(localStorage.getItem("user") || "{}")?.user?.role;
   const username = JSON.parse(localStorage.getItem("user") || "{}")?.user
     ?.username;
+
   const logout = () => {
     localStorage.removeItem("user");
     nav("/login");
@@ -122,9 +124,12 @@ const Header = () => {
                         <Link to="" className="dropdown-item">
                           User : {username}
                         </Link>
-                        <Link to="/admin" className="dropdown-item">
-                          Admin
-                        </Link>
+                        {role === "admin" && (
+                          <Link to="/admin" className="dropdown-item">
+                            Admin
+                          </Link>
+                        )}
+
                         <button className="dropdown-item" onClick={logout}>
                           Logout
                         </button>

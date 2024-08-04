@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<HomeMain />}></Route>
         <Route path="/product/detail/:id" element={<HomeDetail />}></Route>
         {/* Private route admin */}
-        <Route path="/admin" element={<PriveVateRoute />}>
+        <Route path="/admin" element={<PriveVateRoute allowedRole="admin" />}>
           <Route path="/admin" element={<MainAdmin />} />
           <Route path="/admin/products" element={<AdminProduct />} />
           <Route path="/admin/product-add" element={<AddEditProduct />} />
