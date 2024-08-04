@@ -33,9 +33,9 @@ const UserManagement = ({ users, onLockUser }: UserManagementProps) => {
             </tr>
           </thead>
           <tbody>
-            {userList.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
+            {userList.map((user, index: number) => (
+              <tr key={index}>
+                <td className="p-4">{index + 1}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
