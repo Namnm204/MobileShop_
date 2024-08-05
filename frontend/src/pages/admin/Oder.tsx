@@ -119,7 +119,7 @@ const OrderList = () => {
                   <td>{order.customerInfo.payment || "N/A"}</td>
                   <td>
                     <Link
-                      to={`/orders/${order._id}`}
+                      to={`/admin/oders/${order._id}`}
                       className="btn btn-info btn-sm me-2"
                     >
                       View

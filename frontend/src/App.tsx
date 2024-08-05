@@ -4,6 +4,7 @@ import PriveVateRoute from "./component/PriveVateRoute";
 import UserEdit from "./component/User";
 import AdminCategory from "./pages/admin/AdminCategory";
 import AdminOder from "./pages/admin/AdminOder";
+import AdminOderDetail from "./pages/admin/AdminOderDetail";
 import MainAdmin from "./pages/admin/AdminPage";
 import AdminProduct from "./pages/admin/AdminProduct";
 import AdminUsers from "./pages/admin/AdminUser";
@@ -38,6 +39,7 @@ function App() {
           <Route path="/admin/user-edit/:id" element={<UserEdit />} />
           <Route path="/admin/category-add" element={<AddEditCategory />} />
           <Route path="/admin/oders" element={<AdminOder />} />
+          <Route path="/admin/oders/:id" element={<AdminOderDetail />} />
           <Route
             path="/admin/category-edit/:_id"
             element={<AddEditCategory />}
