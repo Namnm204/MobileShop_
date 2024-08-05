@@ -41,18 +41,11 @@ const MenuAdmin = () => {
               <i className="fa fa-light fa-users" />
               User
             </Link>
-            <a href="#" className="nav-item nav-link">
-              <i className="fa fa-keyboard me-2" />
-              Forms
-            </a>
-            <a href="#" className="nav-item nav-link">
+
+            <Link to="/admin/oders" className="nav-item nav-link">
               <i className="fa fa-table me-2" />
-              Tables
-            </a>
-            <a href="#" className="nav-item nav-link">
-              <i className="fa fa-chart-bar me-2" />
-              Charts
-            </a>
+              Oder
+            </Link>
             <Link to="/" className="nav-item nav-link">
               <i className="fa fa-solid fa-house" />
               Home
