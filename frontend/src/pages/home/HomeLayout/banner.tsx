@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/products/products/search?query=${query}`
+      );
+      console.log("Search response:", response.data); // Debugging log
+      navigate("/shop", { state: { products: response.data } });
+    } catch (error) {
+      console.error("Error searching products:", error);
+    }
+  };
+
   return (
     <div>
       <>
@@ -25,6 +42,7 @@ const Banner = () => {
                   aria-label="Close"
                 />
               </div>
+              {/* tìm kiếm sản phẩm */}
               <div className="modal-body d-flex align-items-center">
                 <div className="input-group w-75 mx-auto d-flex">
                   <input
@@ -32,8 +50,14 @@ const Banner = () => {
                     className="form-control p-3"
                     placeholder="keywords"
                     aria-describedby="search-icon-1"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
                   />
-                  <span id="search-icon-1" className="input-group-text p-3">
+                  <span
+                    id="search-icon-1"
+                    className="input-group-text p-3"
+                    onClick={handleSearch}
+                  >
                     <i className="fa fa-search" />
                   </span>
                 </div>
@@ -49,7 +73,7 @@ const Banner = () => {
               <div className="row g-5 align-items-center">
                 <div className="col-md-12 col-lg-7">
                   <h4 className="mb-3 text-secondary">
-                    Điên thoại chính hãng 100%
+                    Điện thoại chính hãng 100%
                   </h4>
                   <h1 className="mb-5 display-3 text-primary">
                     Iphone &amp; Oppo...
@@ -57,13 +81,16 @@ const Banner = () => {
                   <div className="position-relative mx-auto">
                     <input
                       className="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill"
-                      type="number"
+                      type="text"
                       placeholder="Search"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
                     />
                     <button
                       type="submit"
                       className="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
                       style={{ top: 0, right: "25%" }}
+                      onClick={handleSearch}
                     >
                       Submit Now
                     </button>
@@ -86,7 +113,7 @@ const Banner = () => {
                           href="#"
                           className="btn px-4 py-2 text-white rounded"
                         >
-                          Fruites
+                          Fruits
                         </a>
                       </div>
                       <div className="carousel-item rounded">
@@ -99,7 +126,7 @@ const Banner = () => {
                           href="#"
                           className="btn px-4 py-2 text-white rounded"
                         >
-                          Vesitables
+                          Vegetables
                         </a>
                       </div>
                     </div>

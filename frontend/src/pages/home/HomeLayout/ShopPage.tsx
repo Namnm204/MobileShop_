@@ -1,16 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { instace } from "../../../api";
 import { useLocalStorage } from "../../../hook/useStorage";
 import { Products } from "../../../interface/product";
 
-const Products = () => {
+const ShopPage = () => {
   const queryClient = useQueryClient();
+  const location = useLocation();
   const [products, setProducts] = useState<Products[]>([]);
   const [user] = useLocalStorage("user", {});
   const userId = user?.user?._id;
+
   const { mutate } = useMutation({
     mutationFn: async ({
       productId,
@@ -30,19 +32,26 @@ const Products = () => {
       return data;
     },
     onSuccess: () => {
-      alert("thêm vào giỏ hành thành công");
+      alert("Thêm vào giỏ hàng thành công");
       queryClient.invalidateQueries({
         queryKey: ["cart", userId],
       });
     },
   });
-  const fetchProducts = async () => {
-    const { data } = await instace.get(`/products`);
-    setProducts(data.products);
-  };
+
   useEffect(() => {
-    fetchProducts();
-  }, []);
+    if (location.state && location.state.products) {
+      console.log("Products from state:", location.state.products); // Debugging log
+      setProducts(location.state.products);
+    } else {
+      const fetchProducts = async () => {
+        const { data } = await instace.get(`/products`);
+        setProducts(data.products);
+      };
+      fetchProducts();
+    }
+  }, [location.state]);
+
   return (
     <div>
       <div className="container-fluid fruite">
@@ -63,7 +72,7 @@ const Products = () => {
                               <img
                                 src={prd.image}
                                 className="img-fluid rounded-top"
-                                alt=""
+                                alt={prd.name}
                               />
                             </div>
                             <div className="p-4 border border-secondary border-top-0 rounded-bottom">
@@ -104,4 +113,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ShopPage;

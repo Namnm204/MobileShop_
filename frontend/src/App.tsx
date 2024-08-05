@@ -18,6 +18,7 @@ import GTHome from "./pages/home/IntroduceHome";
 import Car from "./pages/home/HomeLayout/car";
 import Checkout from "./pages/home/HomeLayout/checkout";
 import UserEdit from "./component/User";
+import HomeShop from "./pages/home/homeShop";
 function App() {
   return (
     <>
@@ -47,6 +48,7 @@ function App() {
         <Route path="/introduce" element={<GTHome />} />
         <Route path="/car" element={<Car />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/shop" element={<HomeShop />} />
       </Routes>
     </>
   );
