@@ -1,28 +1,34 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useParams } from "react-router-dom";
+// src/components/OrderDetail.tsx
+interface CustomerInfo {
+  username: string;
+  email: string;
+  phone?: string;
+  city?: string;
+  payment?: string;
+}
 
-const fetchOrderDetail = async (id: string) => {
-  const { data } = await axios.get(`http://localhost:8080/oders/${id}`);
-  return data.data; // Trả về trường 'data' từ phản hồi API
-};
+interface OrderItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
 
-const OrderDetail = () => {
-  const { id } = useParams(); // Lấy ID đơn hàng từ URL
-  const {
-    data: order,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["orderDetail", id],
-    queryFn: () => fetchOrderDetail(id),
-  });
+interface Order {
+  _id: string;
+  oderNumber: string;
+  customerInfo: CustomerInfo;
+  items: OrderItem[];
+  totalPrice: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
-  if (isLoading) return <p className="text-center">Đang tải...</p>;
-  if (error)
-    return <p className="text-center text-danger">Lỗi: {error.message}</p>;
-  if (!order) return <p className="text-center">Không tìm thấy dữ liệu</p>;
+interface OrderDetailProps {
+  order: Order;
+}
 
+const OrderDetail: React.FC<OrderDetailProps> = ({ order }) => {
   return (
     <div className="container mt-5">
       <h1 className="mb-4">Chi Tiết Đơn Hàng</h1>
