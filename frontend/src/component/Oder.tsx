@@ -1,4 +1,8 @@
 // src/components/OrderDetail.tsx
+import { useRef } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
 interface CustomerInfo {
   username: string;
   email: string;
@@ -29,10 +33,44 @@ interface OrderDetailProps {
 }
 
 const OrderDetail: React.FC<OrderDetailProps> = ({ order }) => {
+  const printRef = useRef<HTMLDivElement>(null);
+
+  const handleDownloadPDF = async () => {
+    if (printRef.current) {
+      const canvas = await html2canvas(printRef.current);
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgWidth = 210; // A4 size width in mm
+      const pageHeight = 295; // A4 size height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save(`${order.oderNumber}_Detail.pdf`);
+    }
+  };
+
   return (
     <div className="d-flex flex-column align-items-center">
-      <div className="px-5">
+      <div className="px-5" ref={printRef}>
         <h1 className="mb-4 mt-4">Chi Tiết Đơn Hàng</h1>
+        <button
+          className="btn btn-primary mt-4 mb-2"
+          onClick={handleDownloadPDF}
+        >
+          Xuất PDF
+        </button>
         <div className="card shadow-sm">
           <div className="card-header bg-primary text-white">
             <h3 className="mb-0">Mã Đơn Hàng: {order.oderNumber}</h3>
