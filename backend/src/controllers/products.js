@@ -13,12 +13,31 @@ const productSchema = Joi.object({
 });
 
 export const getAllProducts = async (req, res) => {
-  const products = await Products.find().populate("categoryId");
-  if (!products) {
-    return res.json({ message: "không có sản phẩm nào" });
+  try {
+    const page = parseInt(req.query.page) || 1; // Trang hiện tại, mặc định là 1
+    const limit = parseInt(req.query.limit) || 10; // Số lượng sản phẩm trên mỗi trang, mặc định là 10
+
+    const skip = (page - 1) * limit;
+
+    const totalProducts = await Products.countDocuments();
+
+    const products = await Products.find()
+      .populate("categoryId")
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      message: "DANH SÁCH SẢN PHẨM",
+      products,
+      totalProducts,
+      totalPages: Math.ceil(totalProducts / limit),
+      currentPage: page,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Có lỗi xảy ra", error: error.message });
   }
-  return res.json({ message: "DANH SÁCH SẢN PHẨM", products });
 };
+
 export const getById = async (req, res) => {
   const id = req.params.id;
 

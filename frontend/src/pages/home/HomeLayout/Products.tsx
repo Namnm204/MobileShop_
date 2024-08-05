@@ -1,16 +1,26 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { instace } from "../../../api";
 import { useLocalStorage } from "../../../hook/useStorage";
 import { Products } from "../../../interface/product";
 
+// Define the type for paginated product response
+interface PaginatedProducts {
+  products: Products[];
+  totalPages: number;
+}
+
 const Products = () => {
   const queryClient = useQueryClient();
-  const [products, setProducts] = useState<Products[]>([]);
   const [user] = useLocalStorage("user", {});
   const userId = user?.user?._id;
+
+  // State for pagination
+  const [page, setPage] = useState(1);
+  const limit = 8;
+
   const { mutate } = useMutation({
     mutationFn: async ({
       productId,
@@ -30,19 +40,35 @@ const Products = () => {
       return data;
     },
     onSuccess: () => {
-      alert("thêm vào giỏ hành thành công");
+      alert("Thêm vào giỏ hàng thành công");
       queryClient.invalidateQueries({
         queryKey: ["cart", userId],
       });
     },
   });
+
   const fetchProducts = async () => {
-    const { data } = await instace.get(`/products`);
-    setProducts(data.products);
+    const { data } = await instace.get<PaginatedProducts>(`/products`, {
+      params: { page, limit },
+    });
+    return data;
   };
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["products", page],
+    queryFn: fetchProducts,
+    keepPreviousData: true, // Keep old data while fetching new data
+  });
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= data.totalPages) {
+      setPage(newPage);
+    }
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <div>
       <div className="container-fluid fruite">
@@ -53,7 +79,7 @@ const Products = () => {
                 <div className="row g-4">
                   <div className="col-lg-12">
                     <div className="row g-4">
-                      {products.map((prd) => (
+                      {data.products.map((prd) => (
                         <div
                           className="col-md-6 col-lg-4 col-xl-3"
                           key={prd._id}
@@ -94,6 +120,27 @@ const Products = () => {
                       ))}
                     </div>
                   </div>
+                </div>
+
+                {/* Pagination Controls */}
+                <div className="pagination-controls mt-4">
+                  <button
+                    onClick={() => handlePageChange(page - 1)}
+                    disabled={page === 1}
+                    className="btn btn-primary mx-2"
+                  >
+                    Back
+                  </button>
+                  <span>
+                    Page {page} of {data.totalPages}
+                  </span>
+                  <button
+                    onClick={() => handlePageChange(page + 1)}
+                    disabled={page === data.totalPages}
+                    className="btn btn-primary mx-2"
+                  >
+                    Next
+                  </button>
                 </div>
               </div>
             </div>

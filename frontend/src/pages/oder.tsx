@@ -2,9 +2,19 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import useCart from "../hook/useCart";
 import { useLocalStorage } from "../hook/useStorage";
-import { Users } from "../interface/users";
 import { Products } from "../interface/product";
 import axios from "axios";
+import { useState, useEffect } from "react";
+import QRCode from "qrcode.react"; // Thư viện tạo QR Code
+
+interface OderFormData {
+  username?: string;
+  email: string;
+  phone?: string;
+  payment?: string;
+  city?: string;
+  bankAccountNumber?: string;
+}
 
 const OderPage = () => {
   const [user] = useLocalStorage("user", {});
@@ -14,41 +24,68 @@ const OderPage = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<Users>();
+    watch,
+  } = useForm<OderFormData>();
+
+  const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const [showQRCode, setShowQRCode] = useState<boolean>(false);
+  const [countdown, setCountdown] = useState<number>(30);
 
   const { data: cartData, calculateTotal } = useCart();
 
   const { mutate } = useMutation({
     mutationFn: async (oder: {
       userId: string;
-      items: [];
+      items: Products[];
       totalPrice: number;
-      customerInfo: object;
+      customerInfo: OderFormData;
     }) => {
       try {
         const { data } = await axios.post("http://localhost:8080/oders", oder);
         return data;
       } catch (error) {
-        throw new Error("Dat hang that bai");
+        throw new Error("Đặt hàng thất bại");
       }
     },
     onSuccess: () => {
-      alert("dat hang thanh cong");
+      alert("Đặt hàng thành công");
       window.location.href = "/";
     },
     onError: (error) => {
-      alert("Dat hang that bai: " + error.message);
+      alert("Đặt hàng thất bại: " + error.message);
     },
   });
 
-  const handleFormSubmit = async (data: object) => {
+  const handleFormSubmit = async (data: OderFormData) => {
     mutate({
       userId,
-      items: cartData?.products,
+      items: cartData?.products || [],
       totalPrice: calculateTotal(),
       customerInfo: data,
     });
   };
+
+  const paymentMethodValue = watch("payment");
+
+  useEffect(() => {
+    if (paymentMethod === "Bank Transfer") {
+      setShowQRCode(true);
+      setCountdown(30);
+      const interval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            setShowQRCode(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(interval);
+    } else {
+      setShowQRCode(false);
+    }
+  }, [paymentMethod]);
 
   return (
     <div className="container mt-5">
@@ -62,19 +99,14 @@ const OderPage = () => {
               <form onSubmit={handleSubmit(handleFormSubmit)}>
                 <div className="mb-3">
                   <label htmlFor="username" className="form-label">
-                    User Name
+                    Username
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     id="username"
-                    {...register("username", {
-                      required: "Username is required",
-                    })}
+                    {...register("username")}
                   />
-                  {errors.username && (
-                    <div className="text-danger">{errors.username.message}</div>
-                  )}
                 </div>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
@@ -91,23 +123,70 @@ const OderPage = () => {
                   )}
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="phoneNumber" className="form-label">
-                    Phone Number
+                  <label htmlFor="phone" className="form-label">
+                    Phone
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="phoneNumber"
-                    {...register("phoneNumber", {
-                      required: "Phone number is required",
-                    })}
+                    id="phone"
+                    {...register("phone")}
                   />
-                  {errors.phoneNumber && (
-                    <div className="text-danger">
-                      {errors.phoneNumber.message}
-                    </div>
-                  )}
                 </div>
+                <div className="mb-3">
+                  <label htmlFor="payment" className="form-label">
+                    Payment Method
+                  </label>
+                  <select
+                    className="form-control"
+                    id="payment"
+                    {...register("payment")}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  >
+                    <option value="">Phương thức thanh toán</option>
+                    <option value="Cash on Delivery">
+                      Thanh Toán khi nhận hàng
+                    </option>
+                    <option value="Bank Transfer">Ngân hàng</option>
+                  </select>
+                </div>
+                {paymentMethod === "Bank Transfer" && (
+                  <div className="mb-3">
+                    {showQRCode && (
+                      <div className="text-center">
+                        <QRCode
+                          value="https://example.com/qr-code"
+                          size={256}
+                        />
+                        <p>QR sẽ hết hạn sau {countdown}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div className="mb-3">
+                  <label htmlFor="city" className="form-label">
+                    City
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="city"
+                    {...register("city")}
+                  />
+                </div>
+                {paymentMethod === "Bank Transfer" && (
+                  <div className="mb-3">
+                    <label htmlFor="bankAccountNumber" className="form-label">
+                      Bank Account Number
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="bankAccountNumber"
+                      {...register("bankAccountNumber")}
+                    />
+                  </div>
+                )}
                 <div className="mb-3">
                   <button type="submit" className="btn btn-primary w-100">
                     Confirm Order
