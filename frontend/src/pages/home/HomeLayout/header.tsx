@@ -6,6 +6,8 @@ const Header = () => {
   const username = JSON.parse(localStorage.getItem("user") || "{}")?.user
     ?.username;
 
+  const user = JSON.parse(localStorage.getItem("user") || "{}")?.user?._id;
+
   const logout = () => {
     localStorage.removeItem("user");
     nav("/login");
@@ -67,32 +69,9 @@ const Header = () => {
                 <a href="/shop" className="nav-item nav-link">
                   Shop
                 </a>
-                <a href="/shop-detail" className="nav-item nav-link">
-                  Shop Detail
+                <a href="#" className="nav-item nav-link">
+                  About
                 </a>
-                <div className="nav-item dropdown">
-                  <a
-                    href="#"
-                    className="nav-link dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                  >
-                    Pages
-                  </a>
-                  <div className="dropdown-menu m-0 bg-secondary rounded-0">
-                    <a href="/cart" className="dropdown-item">
-                      Cart
-                    </a>
-                    <a href="/checkout" className="dropdown-item">
-                      Checkout
-                    </a>
-                    <a href="/introduce" className="dropdown-item">
-                      Testimonial
-                    </a>
-                    <a href="/404" className="dropdown-item">
-                      404 Page
-                    </a>
-                  </div>
-                </div>
                 <a href="/contact" className="nav-item nav-link">
                   Contact
                 </a>
@@ -121,7 +100,7 @@ const Header = () => {
                   <div className="dropdown-menu">
                     {username ? (
                       <li>
-                        <Link to="" className="dropdown-item">
+                        <Link to={`/user/${user}`} className="dropdown-item">
                           User: {username}
                         </Link>
                         {role === "admin" && (

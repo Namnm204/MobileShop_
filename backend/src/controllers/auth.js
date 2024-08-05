@@ -122,24 +122,18 @@ export const unlockUser = async (req, res) => {
 };
 
 // Cập nhật thông tin người dùng
+
 export const updateUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { username, email, role, isLocked } = req.body;
-
-    const user = await User.findByIdAndUpdate(
-      id,
-      { username, email, role, isLocked },
-      { new: true }
-    );
-
-    if (!user) {
-      return res.status(404).json({ message: "Người dùng không tồn tại." });
+  const id = req.params.id;
+  if (id) {
+    const data = req.body;
+    if (data != {}) {
+      User.findByIdAndUpdate(id, data, { new: true }).then((data) => {
+        res.json({ message: "sửa thành công", data });
+      });
     }
-
-    res.json({ message: "Thông tin người dùng đã được cập nhật.", user });
-  } catch (error) {
-    res.status(500).json({ message: "Lỗi server.", error });
+  } else {
+    return res.status(400).json({ message: "Thiếu thông tin cập nhật" });
   }
 };
 export const getByIdUser = async (req, res) => {

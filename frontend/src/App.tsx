@@ -19,6 +19,7 @@ import Car from "./pages/home/HomeLayout/car";
 import Checkout from "./pages/home/HomeLayout/checkout";
 import UserEdit from "./component/User";
 import HomeShop from "./pages/home/homeShop";
+import HomeUser from "./pages/home/homeUser";
 function App() {
   return (
     <>
@@ -49,6 +50,7 @@ function App() {
         <Route path="/car" element={<Car />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/shop" element={<HomeShop />} />
+        <Route path="/user/:id" element={<HomeUser />} />
       </Routes>
     </>
   );
