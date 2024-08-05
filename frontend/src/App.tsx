@@ -18,6 +18,8 @@ import GTHome from "./pages/home/IntroduceHome";
 import Car from "./pages/home/HomeLayout/car";
 import Checkout from "./pages/home/HomeLayout/checkout";
 import UserEdit from "./component/User";
+import HomeShop from "./pages/home/homeShop";
+import HomeUser from "./pages/home/homeUser";
 function App() {
   return (
     <>
@@ -25,7 +27,7 @@ function App() {
         <Route path="/" element={<HomeMain />}></Route>
         <Route path="/product/detail/:id" element={<HomeDetail />}></Route>
         {/* Private route admin */}
-        <Route path="/admin" element={<PriveVateRoute />}>
+        <Route path="/admin" element={<PriveVateRoute allowedRole="admin" />}>
           <Route path="/admin" element={<MainAdmin />} />
           <Route path="/admin/products" element={<AdminProduct />} />
           <Route path="/admin/product-add" element={<AddEditProduct />} />
@@ -47,6 +49,8 @@ function App() {
         <Route path="/introduce" element={<GTHome />} />
         <Route path="/car" element={<Car />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/shop" element={<HomeShop />} />
+        <Route path="/user/:id" element={<HomeUser />} />
       </Routes>
     </>
   );

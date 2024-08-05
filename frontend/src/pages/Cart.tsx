@@ -80,7 +80,15 @@ const CartPage = () => {
                         {product.price * product.quantity} $
                       </td>
                       <td className="border-2">
-                        <button className="btn btn-md rounded-circle bg-light border">
+                        <button
+                          className="btn btn-md rounded-circle bg-light border"
+                          onClick={() =>
+                            mutate({
+                              action: "REMOVE",
+                              productId: product.productId,
+                            })
+                          }
+                        >
                           <i className="fa fa-times text-danger"></i>
                         </button>
                       </td>

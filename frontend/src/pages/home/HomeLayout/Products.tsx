@@ -30,6 +30,7 @@ const Products = () => {
       return data;
     },
     onSuccess: () => {
+      alert("thêm vào giỏ hành thành công");
       queryClient.invalidateQueries({
         queryKey: ["cart", userId],
       });
@@ -44,8 +45,8 @@ const Products = () => {
   }, []);
   return (
     <div>
-      <div className="container-fluid fruite py-5">
-        <div className="container py-5">
+      <div className="container-fluid fruite">
+        <div className="container">
           <div className="tab-class text-center">
             <div className="tab-content">
               <div id="tab-1" className="tab-pane fade show p-0 active">
@@ -53,12 +54,15 @@ const Products = () => {
                   <div className="col-lg-12">
                     <div className="row g-4">
                       {products.map((prd) => (
-                        <div className="col-md-6 col-lg-4 col-xl-3">
+                        <div
+                          className="col-md-6 col-lg-4 col-xl-3"
+                          key={prd._id}
+                        >
                           <div className="rounded position-relative fruite-item">
                             <div className="fruite-imgg">
                               <img
                                 src={prd.image}
-                                className="img-fluid w-70 h-100 rounded-top"
+                                className="img-fluid rounded-top"
                                 alt=""
                               />
                             </div>

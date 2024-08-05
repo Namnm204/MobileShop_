@@ -3,8 +3,8 @@ import React from "react";
 const Menu = () => {
   return (
     <div>
-      <div className="container-fluid fruite py-5">
-        <div className="container py-5">
+      <div className="container-fluid fruite">
+        <div className="container">
           <div className="tab-class text-center">
             <div className="row g-4">
               <div className="col-lg-4 text-start">
