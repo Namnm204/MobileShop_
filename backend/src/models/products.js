@@ -28,7 +28,7 @@ const productSchema = new Schema({
   },
   categoryId: {
     type: Schema.Types.ObjectId,
-    ref: "Category", // Referring to the Category model
+    ref: "Category",
   },
 });
 

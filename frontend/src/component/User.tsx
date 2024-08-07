@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Users } from "../interface/users";
-import { instace } from "../api";
-import AdminLayout from "../pages/admin/layouts/AdminLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { instace } from "../api";
+import { Users } from "../interface/users";
+import AdminLayout from "../pages/admin/layouts/AdminLayout";
 
 const UserEdit = () => {
   const { id } = useParams<{ id: string }>();

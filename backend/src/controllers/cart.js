@@ -1,6 +1,5 @@
 import Cart from "../models/cart.js";
 import Product from "../models/products.js";
-// import User from "../models/user.js";
 
 export const getbyIdCart = async (req, res) => {
   const { userId } = req.params;
@@ -81,7 +80,6 @@ export const updateCartQuantity = async (req, res) => {
   } catch (error) {}
 };
 
-// Tăng số lượng của sản phẩm trong giỏ hàng
 export const increaseCartQuantity = async (req, res) => {
   const { userId, productId } = req.body;
   try {
@@ -108,7 +106,6 @@ export const increaseCartQuantity = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// Giảm số lượng của sản phẩm trong giỏ hàng
 export const decreaseCartQuantity = async (req, res) => {
   const { userId, productId } = req.body;
   try {

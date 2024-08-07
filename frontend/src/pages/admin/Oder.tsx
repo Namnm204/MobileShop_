@@ -22,10 +22,9 @@ const OrderList = () => {
     queryFn: fetchOrders,
   });
 
-  // Handle delete order
   const deleteMutation = useMutation({
     mutationFn: async (orderId) => {
-      await axios.delete(`http://localhost:8080/oders/${orderId}`); // Đảm bảo đường dẫn API đúng
+      await axios.delete(`http://localhost:8080/oders/${orderId}`);
       queryClient.invalidateQueries(["oders"]);
     },
     onSuccess: () => {
@@ -36,7 +35,6 @@ const OrderList = () => {
     },
   });
 
-  // Handle status update
   const statusMutation = useMutation({
     mutationFn: async ({ orderId, status }) => {
       await updateOrderStatus({ orderId, status });
@@ -109,11 +107,10 @@ const OrderList = () => {
                           : "bg-red"
                       }`}
                     >
-                      <option value="Pending">Pending</option>
-                      <option value="Processing">Processing</option>
-                      <option value="Shipped">Shipped</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Canceled">Canceled</option>
+                      <option value="Pending">Chờ duyệt</option>
+                      <option value="Processing">Đã xử lý</option>
+                      <option value="Shipped">đã vận chuyển</option>
+                      <option value="Delivered">Chờ vận chuyển</option>
                     </select>
                   </td>
                   <td>{order.customerInfo.payment || "N/A"}</td>

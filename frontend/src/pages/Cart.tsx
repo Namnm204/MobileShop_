@@ -1,17 +1,9 @@
-import { ChangeEvent } from "react";
+import { Link } from "react-router-dom";
 import useCart from "../hook/useCart";
 import { Products } from "../interface/product";
-import { Link } from "react-router-dom";
 
 const CartPage = () => {
-  const {
-    data,
-    mutate,
-    handleQuantityChange,
-    calculateTotal,
-    isLoading,
-    isError,
-  } = useCart();
+  const { data, mutate, calculateTotal, isLoading, isError } = useCart();
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
@@ -52,7 +44,7 @@ const CartPage = () => {
                           -
                         </button>
                         <p className="mx-2">{product.quantity}</p>
-                        <input
+                        {/* <input
                           type="number"
                           className="border mx-3 w-12 text-center"
                           style={{ width: "50px" }}
@@ -62,7 +54,7 @@ const CartPage = () => {
                               e as ChangeEvent<HTMLInputElement>
                             )
                           }
-                        />
+                        /> */}
                         <button
                           className="py-1 px-3 rounded"
                           onClick={() =>

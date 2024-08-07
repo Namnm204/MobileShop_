@@ -7,10 +7,8 @@ interface Props {
 }
 
 const Product = ({ products, onRemove }: Props) => {
-  
   return (
     <div className="product">
-      {/* Product */}
       <h2>Product</h2>
       <Link to="/admin/product-add" className="btn btn-primary">
         Thêm sản phẩm

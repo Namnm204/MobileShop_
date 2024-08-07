@@ -26,7 +26,6 @@ const AdminUsers = () => {
     try {
       const endpoint = lock ? `/user/lock/${userId}` : `/user/unlock/${userId}`;
       await instace.post(endpoint);
-      // Cập nhật trạng thái của người dùng trong danh sách
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user._id === userId ? { ...user, isLocked: lock } : user

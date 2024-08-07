@@ -3,7 +3,7 @@ import { Category } from "../../interface/category";
 import { Link } from "react-router-dom";
 interface Props {
   categorys: Category[];
-  onRemove: (id: any) => void;
+  onRemove: (id: string | number) => void;
 }
 
 const Categoryy = ({ categorys, onRemove }: Props) => {
@@ -40,7 +40,7 @@ const Categoryy = ({ categorys, onRemove }: Props) => {
                 </Link>
                 <button
                   className="btn btn-danger"
-                  onClick={() => onRemove(item._id)}
+                  onClick={() => onRemove(item._id!)}
                 >
                   Delete
                 </button>

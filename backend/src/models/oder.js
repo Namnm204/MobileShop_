@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// Schema cho các mặt hàng trong đơn hàng
 const OderItemSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,7 +15,6 @@ const OderItemSchema = new mongoose.Schema({
   },
 });
 
-// Schema cho đơn hàng
 const OderSchema = new mongoose.Schema(
   {
     userId: {
@@ -34,8 +32,8 @@ const OderSchema = new mongoose.Schema(
     },
     customerInfo: {
       username: {
-        type: String, // Thêm trường username
-        required: true, // Bắt buộc nếu bạn muốn
+        type: String,
+        required: true,
       },
       email: {
         type: String,

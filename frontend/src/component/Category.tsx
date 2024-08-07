@@ -12,7 +12,7 @@ type Props = {
 
 const CategoryFrom = ({ onSubmit }: Props) => {
   const { _id } = useParams();
-  const navigate = useNavigate(); // Đặt useNavigate ở đây
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,10 +27,10 @@ const CategoryFrom = ({ onSubmit }: Props) => {
     try {
       if (_id) {
         await instace.put(`/category/${_id}`, data);
-        alert('Sửa sản phẩm thành công');
+        alert("Sửa sản phẩm thành công");
       } else {
         await instace.post(`/category`, data);
-        alert('Thêm sản phẩm thành công');
+        alert("Thêm sản phẩm thành công");
       }
       navigate("/admin/category");
     } catch (error) {
@@ -48,7 +48,6 @@ const CategoryFrom = ({ onSubmit }: Props) => {
     fetchData();
   }, [_id, reset]);
 
-  
   // const [category, setCategory] = useState<Category[]>([]);
   // const fetchCategory = async () => {
   //   try {

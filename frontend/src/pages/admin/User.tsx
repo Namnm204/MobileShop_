@@ -53,7 +53,7 @@ const UserManagement = ({ users, onLockUser }: UserManagementProps) => {
                     } mx-2`}
                     onClick={() => onLockUser(user._id!, !user.isLocked)}
                   >
-                    {user.isLocked ? "Mở khóa" : "Khóa Mõm"}
+                    {user.isLocked ? "Mở khóa" : "Khóa"}
                   </button>
                 </td>
               </tr>

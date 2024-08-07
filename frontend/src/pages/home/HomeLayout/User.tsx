@@ -1,8 +1,10 @@
+// src/pages/admin/ProfilePage.tsx
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Users } from "../../../interface/users";
+import OrderHistory from "../OrderHistory";
 
 const ProfilePage = () => {
   const { id } = useParams();
@@ -153,6 +155,8 @@ const ProfilePage = () => {
           </div>
         </div>
       )}
+      {/* Order History */}
+      <OrderHistory userId={id!} />
     </div>
   );
 };

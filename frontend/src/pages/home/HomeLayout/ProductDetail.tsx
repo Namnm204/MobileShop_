@@ -11,7 +11,9 @@ const ProductDetail = () => {
   const [p, setP] = useState<Products>({});
   const fetchProducts = async () => {
     const { data } = await instace.get(`products/${id}`);
-    setP(data.products || data);
+    console.log(data);
+
+    setP(data.product || data);
   };
 
   useEffect(() => {

@@ -28,7 +28,7 @@ const LoginHome = () => {
       console.log(res);
 
       if (res.data.user.isLocked) {
-        alert("Tài khoản của bạn đã bị khóa.");
+        alert("Tài khoản của bạn đã bị khóa, vui lòng liên hệ admin");
         return;
       } else {
         localStorage.setItem("user", JSON.stringify(res.data));

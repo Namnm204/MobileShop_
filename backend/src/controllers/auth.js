@@ -121,8 +121,6 @@ export const unlockUser = async (req, res) => {
   }
 };
 
-// Cập nhật thông tin người dùng
-
 export const updateUser = async (req, res) => {
   const id = req.params.id;
   if (id) {

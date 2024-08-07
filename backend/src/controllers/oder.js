@@ -11,7 +11,6 @@ export const createOder = async (req, res) => {
   }
 };
 
-// Lấy danh sách hóa đơn
 export const getAllOrders = async (req, res) => {
   try {
     Oder.find().then((data) => {
@@ -22,7 +21,6 @@ export const getAllOrders = async (req, res) => {
   }
 };
 
-// Lấy chi tiết hóa đơn
 export const getOrderById = async (req, res) => {
   const id = req.params.id;
   if (id) {
@@ -33,7 +31,6 @@ export const getOrderById = async (req, res) => {
   }
 };
 
-// Cập nhật trạng thái hóa đơn
 export const updateOrder = async (req, res) => {
   const id = req.params.id;
   if (id) {

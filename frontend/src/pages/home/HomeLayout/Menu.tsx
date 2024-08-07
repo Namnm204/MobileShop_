@@ -8,7 +8,7 @@ const Menu = () => {
           <div className="tab-class text-center">
             <div className="row g-4">
               <div className="col-lg-4 text-start">
-                <h1>Our Organic Products</h1>
+                <h1>Products</h1>
               </div>
               <div className="col-lg-8 text-end">
                 <ul className="nav nav-pills d-inline-flex text-center mb-5">
@@ -30,7 +30,7 @@ const Menu = () => {
                       href="#tab-2"
                     >
                       <span className="text-dark" style={{ width: 130 }}>
-                        Vegetables
+                        Iphone
                       </span>
                     </a>
                   </li>
@@ -41,7 +41,7 @@ const Menu = () => {
                       href="#tab-3"
                     >
                       <span className="text-dark" style={{ width: 130 }}>
-                        Fruits
+                        SamSung
                       </span>
                     </a>
                   </li>
@@ -52,7 +52,7 @@ const Menu = () => {
                       href="#tab-4"
                     >
                       <span className="text-dark" style={{ width: 130 }}>
-                        Bread
+                        XIAOMI
                       </span>
                     </a>
                   </li>
@@ -63,7 +63,7 @@ const Menu = () => {
                       href="#tab-5"
                     >
                       <span className="text-dark" style={{ width: 130 }}>
-                        Meat
+                        OPPO
                       </span>
                     </a>
                   </li>

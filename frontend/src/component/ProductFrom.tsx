@@ -23,7 +23,7 @@ const ProductFrom = () => {
     const fetchData = async () => {
       if (_id) {
         const { data } = await instace.get(`/products/${_id}`);
-        reset(data.products || data);
+        reset(data.product || data);
       }
     };
 
@@ -35,10 +35,10 @@ const ProductFrom = () => {
     try {
       if (_id) {
         await instace.put(`/products/${_id}`, data);
-        alert('Sửa sản phẩm thành công');
+        alert("Sửa sản phẩm thành công");
       } else {
         await instace.post(`/products`, data);
-        alert('Thêm sản phẩm thành công');
+        alert("Thêm sản phẩm thành công");
       }
       navigate("/admin/products");
     } catch (error) {

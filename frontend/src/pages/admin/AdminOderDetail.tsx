@@ -24,7 +24,7 @@ const AdminOderDetail = () => {
       }
       return fetchOrderDetail(id);
     },
-    enabled: !!id, // Only fetch data if id is defined
+    enabled: !!id, 
   });
 
   if (isLoading) return <p className="text-center">Đang tải...</p>;
